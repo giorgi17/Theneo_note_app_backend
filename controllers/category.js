@@ -52,17 +52,24 @@ exports.getCategories = async (req, res, next) => {
         return error;
     }
 
-    const currentPage = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 5;
+    const currentPage = parseInt(req.body.page) || 1;
+    const perPage = parseInt(req.body.perPage) || 5;
+    const noPaginate = req.body?.noPaginate;
 
     try {
         const totalItems = await Category.find().countDocuments();
         const hasNext = totalItems - currentPage * perPage > 0;
 
-        let categories = await Category.find()
-            .sort({ createdAt: -1 })
-            .skip((currentPage - 1) * perPage)
-            .limit(perPage);
+        let categories;
+
+        if (noPaginate) {
+            categories = await Category.find().sort({ createdAt: -1 });
+        } else {
+            categories = await Category.find()
+                .sort({ createdAt: -1 })
+                .skip((currentPage - 1) * perPage)
+                .limit(perPage);
+        }
 
         logger.info(`Fetched categories - totalItems: ${totalItems}`);
         res.status(200).json({

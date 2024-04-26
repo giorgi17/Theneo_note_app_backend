@@ -12,7 +12,7 @@ router.post(
     categoryController.createCategory
 );
 
-router.get(
+router.post(
     '/getCategories',
     isAuth,
     validation.getCategories,
