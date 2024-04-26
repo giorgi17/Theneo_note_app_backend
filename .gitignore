@@ -1,0 +1,8 @@
+node_modules
+config.env
+logs/error/*
+logs/info/*
+logs/all/*
+!logs/error/.gitkeep
+!logs/info/.gitkeep
+!logs/all/.gitkeep
