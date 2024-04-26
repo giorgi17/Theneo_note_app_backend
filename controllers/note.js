@@ -67,8 +67,8 @@ exports.getNotes = async (req, res, next) => {
         return error;
     }
 
-    const currentPage = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 5;
+    const currentPage = parseInt(req.body.page) || 1;
+    const perPage = parseInt(req.body.perPage) || 5;
     const sortType = req.body.sort.name;
     const sortOrder = req.body.sort.order;
 
@@ -126,22 +126,19 @@ exports.getNotes = async (req, res, next) => {
             {
                 $sort: { [sortType]: sortOrder },
             },
-            {
-                $skip: (currentPage - 1) * perPage,
-            },
-            {
-                $limit: perPage,
-            },
         ]);
 
         const totalItems = notes.length;
         const hasNext = totalItems - currentPage * perPage > 0;
 
+        const startIndex = (currentPage - 1) * perPage;
+        const slicedData = notes.slice(startIndex, startIndex + perPage);
+
         logger.info(`Fetched notes - totalItems: ${totalItems}`);
 
         res.status(200).json({
             message: 'Fetched notes successfully.',
-            notes,
+            notes: slicedData,
             totalItems,
             currentPage,
             hasNext,
