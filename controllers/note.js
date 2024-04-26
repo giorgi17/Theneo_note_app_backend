@@ -433,7 +433,7 @@ exports.searchNotes = async (req, res, next) => {
 
         // Fetching users data with property indicating wether this user's one of the notes met the filter criteria or not with new property - "matchedFilter"
         let usersWithMatchedFilter;
-        if (creatorsFilter.selectAll) {
+        if (creatorsFilter?.selectAll) {
             usersWithMatchedFilter = await User.aggregate([
                 {
                     $lookup: {
