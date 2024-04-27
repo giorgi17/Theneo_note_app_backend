@@ -102,3 +102,23 @@ exports.login = async (req, res, next) => {
         return err;
     }
 };
+
+exports.getUsers = async (req, res, next) => {
+    try {
+        const users = await User.find().sort({ username: 1 });
+
+        logger.info(`Fetched users`);
+        res.status(200).json({
+            message: 'Fetched users successfully.',
+            users,
+        });
+    } catch (err) {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+
+        logger.error(`getUsers error - ${err}`);
+        next(err);
+        return err;
+    }
+};

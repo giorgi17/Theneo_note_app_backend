@@ -49,3 +49,5 @@ exports.login = [
         .normalizeEmail(),
     body('password').trim().isLength({ min: 5 }),
 ];
+
+exports.getUsers = [];
