@@ -195,6 +195,7 @@ exports.updateNote = async (req, res, next) => {
     if (!errors.isEmpty()) {
         const error = new Error('Validation failed, invalid data was entered!');
         error.statusCode = 422;
+        error.data = errors.array();
         logger.error(`updateNote error - ${errors}`);
         next(error);
         return error;

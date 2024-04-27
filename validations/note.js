@@ -1,8 +1,14 @@
 const { body, param } = require('express-validator');
 
 exports.createNote = [
-    body('title').trim().isLength({ min: 5 }),
-    body('description').trim().isLength({ min: 5 }),
+    body('title')
+        .trim()
+        .isLength({ min: 5 })
+        .withMessage('Title should be at least 5 characters.'),
+    body('description')
+        .trim()
+        .isLength({ min: 5 })
+        .withMessage('Description should be at least 5 characters.'),
     body('category').trim().notEmpty(),
     body('isPrivate').isBoolean(),
     body('assignedTo').isArray(),
@@ -29,8 +35,14 @@ exports.getNote = [
 
 exports.updateNote = [
     param('noteId').trim().isString().isLength({ min: 24, max: 24 }),
-    body('title').trim().isLength({ min: 5 }),
-    body('description').trim().isLength({ min: 5 }),
+    body('title')
+        .trim()
+        .isLength({ min: 5 })
+        .withMessage('Title should be at least 5 characters.'),
+    body('description')
+        .trim()
+        .isLength({ min: 5 })
+        .withMessage('Description should be at least 5 characters.'),
     body('category').notEmpty(),
     body('isPrivate').isBoolean(),
     body('assignedTo').isArray(),
