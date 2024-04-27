@@ -7,7 +7,7 @@ exports.createCategory = [
         .notEmpty()
         .custom(async (value, { req }) => {
             const count = await Category.countDocuments({
-                title: { $regex: new RegExp(`^${value}`, 'i') },
+                title: value,
             });
 
             if (count) {
@@ -33,7 +33,7 @@ exports.updateCategory = [
         .notEmpty()
         .custom(async (value, { req }) => {
             const count = await Category.countDocuments({
-                title: { $regex: new RegExp(`^${value}`, 'i') },
+                title: value,
             });
 
             if (count) {
