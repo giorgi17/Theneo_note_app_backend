@@ -14,7 +14,13 @@ exports.signup = [
     body('username')
         .trim()
         .isLength({ min: 5 })
-        .withMessage('Username should be at least 5 characters.'),
+        .withMessage('Username should be at least 5 characters.')
+        .custom(async (value, { req }) => {
+            const foundUser = await User.findOne({ username: value });
+            if (foundUser) {
+                return Promise.reject('Username already exist!');
+            }
+        }),
     body('email')
         .isEmail()
         .withMessage('Please enter a valid email.')
