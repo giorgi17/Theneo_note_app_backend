@@ -469,10 +469,10 @@ exports.searchNotes = async (req, res, next) => {
         res.status(200).json({
             message: 'Fetched notes successfully.',
             notes,
+            ...(usersWithMatchedFilter && { usersWithMatchedFilter }),
             totalItems,
             currentPage,
             hasNext,
-            ...(usersWithMatchedFilter && { usersWithMatchedFilter }),
         });
     } catch (err) {
         if (!err.statusCode) {
