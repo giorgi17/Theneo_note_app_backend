@@ -87,9 +87,15 @@ exports.searchNote = [
             }
 
             if (value?.creators) {
-                if (!Array.isArray(value?.creators.selected)) {
+                if (!Array.isArray(value?.creators?.selected)) {
                     return Promise.reject(
-                        'Filter - creators are in incorrect format'
+                        'Filter - creators.selected is in incorrect format'
+                    );
+                }
+
+                if (typeof value?.creators?.selectAll !== 'boolean') {
+                    return Promise.reject(
+                        'Filter - creators.selectAll property is in incorrect format'
                     );
                 }
             }
