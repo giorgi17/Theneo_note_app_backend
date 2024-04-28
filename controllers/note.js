@@ -421,12 +421,6 @@ exports.searchNotes = async (req, res, next) => {
             {
                 $sort: { createdAt: -1 },
             },
-            {
-                $skip: (currentPage - 1) * perPage,
-            },
-            {
-                $limit: perPage,
-            },
         ]);
 
         // Fetching users data with property indicating wether this user's one of the notes met the filter criteria or not with new property - "matchedFilter"
@@ -465,10 +459,13 @@ exports.searchNotes = async (req, res, next) => {
         const totalItems = notes.length;
         const hasNext = totalItems - currentPage * perPage > 0;
 
+        const startIndex = (currentPage - 1) * perPage;
+        const slicedData = notes.slice(startIndex, startIndex + perPage);
+
         logger.info(`Fetched searched notes - totalItems: ${totalItems}`);
         res.status(200).json({
             message: 'Fetched notes successfully.',
-            notes,
+            notes: slicedData,
             ...(usersWithMatchedFilter && { usersWithMatchedFilter }),
             totalItems,
             currentPage,
