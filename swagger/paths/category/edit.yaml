@@ -1,0 +1,31 @@
+tags:
+    - Category
+summary: Edit category
+security:
+  - bearerAuth: []
+parameters:
+  - name: categoryId
+    in: path
+    description: 'The ID of the category to update.'
+    required: true
+    schema:
+      type: string
+responses:
+    200:
+        description: Successfully edited category
+        content:
+          application/json:
+            schema: 
+              $ref: ../../definitions/response/category/edit.yaml
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/category/edit.yaml

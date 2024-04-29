@@ -1,0 +1,31 @@
+tags:
+    - Note
+summary: Edit note
+security:
+  - bearerAuth: []
+parameters:
+  - name: noteId
+    in: path
+    description: 'The ID of the note to update.'
+    required: true
+    schema:
+      type: string
+responses:
+    200:
+        description: Successfully edited note
+        content:
+          application/json:
+            schema: 
+              $ref: ../../definitions/response/note/edit.yaml
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/note/edit.yaml

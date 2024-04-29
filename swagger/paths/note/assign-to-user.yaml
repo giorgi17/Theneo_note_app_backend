@@ -1,0 +1,24 @@
+tags:
+    - Note
+summary: Assign note to user
+security:
+  - bearerAuth: []
+responses:
+    200:
+        description: Successfully assigned note to user
+        content:
+          application/json:
+            schema: 
+              $ref: ../../definitions/response/note/assign-to-user.yaml
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/note/assign-to-user.yaml

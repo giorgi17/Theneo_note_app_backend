@@ -1,0 +1,24 @@
+tags:
+    - Category
+summary: Get list of categories
+security:
+  - bearerAuth: []
+responses:
+    200:
+        description: Successfully fetched list of categories
+        content:
+          application/json:
+            schema: 
+              $ref: ../../definitions/response/category/get-list.yaml
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/category/get-list.yaml

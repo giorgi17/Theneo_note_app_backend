@@ -1,0 +1,24 @@
+tags:
+    - Note
+summary: Get list of notes
+security:
+  - bearerAuth: []
+responses:
+    200:
+        description: Successfully fetched list of notes
+        content:
+          application/json:
+            schema: 
+              $ref: ../../definitions/response/note/get-list.yaml
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/note/get-list.yaml

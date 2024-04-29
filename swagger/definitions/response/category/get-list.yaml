@@ -1,0 +1,18 @@
+type: object
+properties:
+  message:
+    type: string
+    description: A message indicating the result of the operation
+  categories:
+    type: array
+    items:
+      $ref: ../../models/Category.yaml
+  totalItems:
+    type: integer
+    description: Total number of items available
+  currentPage:
+    type: integer
+    description: Current page
+  hasNext:
+    type: boolean
+    description: Indication if next page is available for pagination

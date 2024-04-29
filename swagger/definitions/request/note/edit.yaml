@@ -1,0 +1,31 @@
+type: object
+properties:
+  title:
+    type: string
+    description: Title of the note
+    example: "A testing note"
+    required: true
+  description:
+    type: string
+    description: Title of the note
+    example: "A testing note"
+    required: true
+  category:
+    type: string
+    format: uuid
+    description: Category ID associated with the note
+    example: 5fb0f7bfa9807c3362d8557b
+    required: true
+  isPrivate:
+    type: boolean
+    description: Note privacy
+    example: false
+    required: true
+  assignedTo:
+    type: array
+    items:
+        type: string
+        format: uuid
+        description: An array of user IDs associated with the note
+        example: 5fb0f7bfa9807c3362d8557b
+    required: true

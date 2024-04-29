@@ -1,0 +1,8 @@
+type: object
+properties:
+  message:
+    type: string
+    description: A message indicating the result of the operation
+  category:
+    $ref: ../../models/Category.yaml
+    description: Edited category

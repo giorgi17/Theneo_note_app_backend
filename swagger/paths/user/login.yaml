@@ -1,0 +1,20 @@
+tags:
+    - User
+summary: User login
+responses:
+    200:
+        description: User logged in successfully
+        content:
+          application/json:
+            schema: 
+              $ref: '../../definitions/response/user/login.yaml'
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/user/login.yaml

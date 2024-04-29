@@ -1,0 +1,11 @@
+type: object
+properties:
+  token:
+    type: string
+    description: JWT token for authentication.
+    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiI1ZmIwZjdiZmE5ODA3YzMzNjJkODU1N2IiLCJpYXQiOjE2NDA0Nzg3MDYsImV4cCI6MTY0MDQ4MTUwNn0.14YrT6YDZUqTebOe9g9u_CJmCPrh2NjeMxv_Ru4DFzA
+  userId:
+    type: string
+    format: uuid
+    description: The ID of the logged-in user.
+    example: 5fb0f7bfa9807c3362d8557b

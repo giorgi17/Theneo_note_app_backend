@@ -1,0 +1,28 @@
+type: object
+properties:
+    _id:
+        type: string
+        description: The unique identifier of the user
+    firstname:
+        type: string
+        description: The first name of the user
+    lastname:
+        type: string
+        description: The last name of the user
+    username:
+        type: string
+        description: The username of the user
+    email:
+        type: string
+        description: The email address of the user
+    password:
+        type: string
+        description: The password of the user (hashed)
+    notes:
+        type: array
+        items:
+            type: string
+        description: An array of note IDs associated with the user
+    __v:
+        type: integer
+        description: Version number of the user

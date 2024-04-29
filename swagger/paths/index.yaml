@@ -1,0 +1,48 @@
+# User API
+/user/login:
+    post:
+        $ref: ./user/login.yaml
+/user/signup:
+    post:
+        $ref: ./user/register.yaml
+/user/getUsers:
+    get:
+        $ref: ./user/get-users.yaml
+
+# Category API
+/category/getCategories:
+    post:
+        $ref: ./category/get-list.yaml
+/category/create:
+    post:
+        $ref: ./category/create.yaml
+/category/{categoryId}:
+    patch:
+        $ref: ./category/edit.yaml
+    delete:
+        $ref: ./category/delete.yaml
+
+# Note API
+/note/create:
+    post:
+        $ref: ./note/create.yaml
+/note/getNotes:
+    post:
+        $ref: ./note/get-list.yaml
+/note/getNote/{noteId}:
+    get:
+        $ref: ./note/get-note.yaml
+/note/{noteId}:
+    patch:
+        $ref: ./note/edit.yaml
+    delete: 
+        $ref: ./note/delete.yaml
+/note/search:
+    post:
+        $ref: ./note/search.yaml
+/note/assignToUser:
+    post:
+        $ref: ./note/assign-to-user.yaml
+/note/toggleNotePrivate:
+    post:
+        $ref: ./note/toggle-note-privacy.yaml

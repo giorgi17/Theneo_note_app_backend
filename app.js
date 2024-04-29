@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const swaggerUI = require('swagger-ui-express');
 const requestLogger = require('./middlewares/requestLogger');
 const logger = require('./utils/logger');
+const swaggerConfig = require('./swagger/config/swaggerConfig');
 
 require('dotenv').config({ path: './config.env' });
 const app = express();
@@ -10,6 +12,13 @@ const PORT = process.env.PORT || 3000;
 const DB_URL = process.env.DB_URL;
 
 app.use(express.json());
+
+// Swagger docs
+app.use(
+    '/api-docs',
+    swaggerUI.serve,
+    swaggerUI.setup(swaggerConfig, null, null, null)
+);
 
 // Routes
 const userRoutes = require('./routes/user');

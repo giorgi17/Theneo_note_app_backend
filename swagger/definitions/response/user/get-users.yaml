@@ -1,0 +1,9 @@
+type: object
+properties:
+  message:
+    type: string
+    description: A message indicating the result of the operation
+  users:
+    type: array
+    items:
+      $ref: ../../models/User.yaml

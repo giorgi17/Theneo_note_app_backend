@@ -1,0 +1,27 @@
+tags:
+    - Note
+summary: Get a note
+security:
+  - bearerAuth: []
+description: Get a note with the id specified in parameter
+produces:
+    - application/json
+parameters:
+    - in: path
+      name: noteId
+      description: Note id that needs to be fetched
+      required: true
+      type: string
+responses:
+    200:
+        description: Note fetched successfully
+        schema:
+            $ref: ../../definitions/response/note/get-note.yaml
+    400:
+        description: Error in fetching note
+    404:
+        description: Note not found
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error

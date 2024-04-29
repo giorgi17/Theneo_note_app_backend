@@ -1,0 +1,38 @@
+type: object
+properties:
+  _id:
+      type: string
+      description: The unique identifier of the note
+  title:
+      type: string
+      description: The title of the note
+  description:
+      type: string
+      description: The description of the note
+  creator:
+      type: string
+      description: The ID of the user who created the note
+  category:
+      type: string
+      format: uuid
+      description: Category ID associated with the note
+  isPrivate:
+      type: boolean
+      description: Indicates whether the note is private or not
+  assignedTo:
+      type: array
+      items:
+          type: string
+          format: uuid
+          description: An array of user IDs associated with the note
+  createdAt:
+      type: string
+      format: date-time
+      description: The date and time when the note was created
+  updatedAt:
+      type: string
+      format: date-time
+      description: The date and time when the note was last updated
+  __v:
+      type: integer
+      description: Version number of the note

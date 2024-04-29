@@ -1,0 +1,7 @@
+type: object
+properties:
+  title:
+    type: string
+    description: Title of the category
+    example: "A testing category"
+    required: true

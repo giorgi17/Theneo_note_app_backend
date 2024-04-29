@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node app.js",
-        "start:dev": "nodemon app.js"
+        "start:dev": "nodemon app.js",
+        "doc:generate": "swagger-cli bundle swagger/index.yaml --outfile swagger/index.json"
     },
     "keywords": [],
     "author": "",
@@ -19,6 +20,8 @@
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.3.2",
         "morgan": "^1.10.0",
+        "swagger-cli": "^4.0.4",
+        "swagger-ui-express": "^5.0.0",
         "winston": "^3.13.0",
         "winston-daily-rotate-file": "^5.0.0"
     }

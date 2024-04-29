@@ -1,0 +1,29 @@
+tags:
+    - Category
+summary: Delete category
+security:
+  - bearerAuth: []
+parameters:
+  - name: categoryId
+    in: path
+    description: 'The ID of the category to delete.'
+    required: true
+    schema:
+      type: string
+responses:
+    200:
+        description: Successfully deleted category
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: A message indicating the result of the operation
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error

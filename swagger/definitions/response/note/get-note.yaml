@@ -1,0 +1,7 @@
+type: object
+properties:
+  message:
+    type: string
+    description: A message indicating the result of the operation
+  note:
+    $ref: ../../models/Note.yaml

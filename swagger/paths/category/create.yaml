@@ -1,0 +1,24 @@
+tags:
+    - Category
+summary: Create a new category
+security:
+  - bearerAuth: []
+responses:
+    201:
+        description: Successfully created a new category
+        content:
+          application/json:
+            schema: 
+              $ref: ../../definitions/response/category/create.yaml
+    401:
+        description: Authentication failed
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/category/create.yaml

@@ -1,0 +1,20 @@
+tags:
+    - User
+summary: Create a new user
+responses:
+    201:
+        description: User created successfully
+        content:
+          application/json:
+            schema: 
+              $ref: '../../definitions/response/user/register.yaml'
+    422:
+        description: Validation failed
+    500:
+        description: Internal server error
+requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: ../../definitions/request/user/register.yaml

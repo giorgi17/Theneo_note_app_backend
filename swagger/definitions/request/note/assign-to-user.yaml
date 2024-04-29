@@ -1,0 +1,14 @@
+type: object
+properties:
+  assignToId:
+    type: string
+    format: uuid
+    description: User ID
+    required: true
+    example: 66295411453e0001750a08f8
+  noteId:
+    type: string
+    format: uuid
+    description: Note ID
+    required: true
+    example: 662a6a787b15ff3eb4b5f155

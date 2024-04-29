@@ -1,0 +1,1377 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API documentaion",
+    "description": "Theneo Node API documentaion.",
+    "contact": {
+      "email": "giorgi199817@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:4000/api"
+    }
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User login",
+        "responses": {
+          "200": {
+            "description": "User logged in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JWT token for authentication.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiI1ZmIwZjdiZmE5ODA3YzMzNjJkODU1N2IiLCJpYXQiOjE2NDA0Nzg3MDYsImV4cCI6MTY0MDQ4MTUwNn0.14YrT6YDZUqTebOe9g9u_CJmCPrh2NjeMxv_Ru4DFzA"
+                    },
+                    "userId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "The ID of the logged-in user.",
+                      "example": "5fb0f7bfa9807c3362d8557b"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email of the user.",
+                    "example": "example@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password of the user.",
+                    "example": "password123"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new user",
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the registration process.",
+                      "example": "User created!"
+                    },
+                    "userId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "The ID of the newly created user.",
+                      "example": "5fbb4f03842b2d12c4097db2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstname": {
+                    "type": "string",
+                    "description": "The first name of the user",
+                    "example": "test"
+                  },
+                  "lastname": {
+                    "type": "string",
+                    "description": "The last name of the user",
+                    "example": "test"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "The username of the user",
+                    "example": "test123"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email of the user.",
+                    "example": "example@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "The password of the user",
+                    "example": "test123"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "description": "The confirm password of the user",
+                    "example": "test123"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/getUsers": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get list of users",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/category/getCategories": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get list of categories",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched list of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "description": "Total number of items available"
+                    },
+                    "currentPage": {
+                      "type": "integer",
+                      "description": "Current page"
+                    },
+                    "hasNext": {
+                      "type": "boolean",
+                      "description": "Indication if next page is available for pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "integer",
+                    "description": "(Page number for pagination (default: 1)",
+                    "required": true,
+                    "example": 1
+                  },
+                  "perPage": {
+                    "type": "integer",
+                    "description": "(Page number for pagination (default: 5)",
+                    "required": true,
+                    "example": 5
+                  },
+                  "noPaginate": {
+                    "type": "boolean",
+                    "description": "option to fetch all the categories without pagination or not",
+                    "example": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/create": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Create a new category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created a new category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "category": {
+                      "$ref": "#/components/schemas/Category",
+                      "description": "Fetched category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the category",
+                    "example": "A testing category",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/{categoryId}": {
+      "patch": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Edit category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "The ID of the category to update.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully edited category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "category": {
+                      "$ref": "#/components/schemas/Category",
+                      "description": "Edited category"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the category",
+                    "example": "A testing category",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Delete category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "The ID of the category to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/note/create": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Create a note",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully created a note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "note": {
+                      "$ref": "#/components/schemas/Note"
+                    },
+                    "creator": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "example": "5fb0f7bfa9807c3362d8557b",
+                          "description": "Id of note creator"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "tester123",
+                          "description": "username of note creator"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "The title of the note",
+                    "required": true,
+                    "example": "testing"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "The description of the note",
+                    "required": true,
+                    "example": "testing"
+                  },
+                  "category": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Category ID associated with the note",
+                    "example": "5fb0f7bfa9807c3362d8557b",
+                    "required": true
+                  },
+                  "isPrivate": {
+                    "type": "boolean",
+                    "description": "Indicates whether the note is private or not",
+                    "required": true,
+                    "example": false
+                  },
+                  "assignedTo": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "An array of user IDs associated with the note",
+                      "example": "5fb0f7bfa9807c3362d8557b"
+                    },
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/getNotes": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Get list of notes",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched list of notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "notes": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Note"
+                      }
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "description": "Total number of items available"
+                    },
+                    "currentPage": {
+                      "type": "integer",
+                      "description": "Current page"
+                    },
+                    "hasNext": {
+                      "type": "boolean",
+                      "description": "Indication if next page is available for pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "integer",
+                    "description": "(Page number for pagination (default: 1)",
+                    "required": true,
+                    "example": 1
+                  },
+                  "perPage": {
+                    "type": "integer",
+                    "description": "(Page number for pagination (default: 5)",
+                    "required": true,
+                    "example": 5
+                  },
+                  "sort": {
+                    "type": "object",
+                    "description": "sorting options for fetching notes",
+                    "required": true,
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "enum": [
+                          "createdAt",
+                          "updatedAt",
+                          "category",
+                          "title"
+                        ],
+                        "description": "Sort field name"
+                      },
+                      "order": {
+                        "type": "integer",
+                        "enum": [
+                          1,
+                          -1
+                        ],
+                        "description": "Sort order (ascending or descending)"
+                      }
+                    },
+                    "example": {
+                      "name": "createdAt",
+                      "order": -1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/getNote/{noteId}": {
+      "get": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Get a note",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Get a note with the id specified in parameter",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "noteId",
+            "description": "Note id that needs to be fetched",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Note fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "A message indicating the result of the operation"
+                },
+                "note": {
+                  "$ref": "#/components/schemas/Note"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error in fetching note"
+          },
+          "404": {
+            "description": "Note not found"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/note/{noteId}": {
+      "patch": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Edit note",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "description": "The ID of the note to update.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully edited note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "savedNote": {
+                      "$ref": "#/components/schemas/Note",
+                      "description": "Edited note"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the note",
+                    "example": "A testing note",
+                    "required": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Title of the note",
+                    "example": "A testing note",
+                    "required": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Category ID associated with the note",
+                    "example": "5fb0f7bfa9807c3362d8557b",
+                    "required": true
+                  },
+                  "isPrivate": {
+                    "type": "boolean",
+                    "description": "Note privacy",
+                    "example": false,
+                    "required": true
+                  },
+                  "assignedTo": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "An array of user IDs associated with the note",
+                      "example": "5fb0f7bfa9807c3362d8557b"
+                    },
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Delete note",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "description": "The ID of the note to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/note/search": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Get list of searched notes",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched list of searched notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "notes": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Note"
+                      }
+                    },
+                    "usersWithMatchedFilter": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/UserMatched"
+                      }
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "description": "Total number of items available"
+                    },
+                    "currentPage": {
+                      "type": "integer",
+                      "description": "Current page"
+                    },
+                    "hasNext": {
+                      "type": "boolean",
+                      "description": "Indication if next page is available for pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "type": "integer",
+                    "description": "(Page number for pagination (default: 1)",
+                    "required": true,
+                    "example": 1
+                  },
+                  "perPage": {
+                    "type": "integer",
+                    "description": "(Page number for pagination (default: 5)",
+                    "required": true,
+                    "example": 5
+                  },
+                  "searchText": {
+                    "type": "string",
+                    "description": "keyword to search notes with",
+                    "required": true,
+                    "example": "test"
+                  },
+                  "filters": {
+                    "type": "object",
+                    "description": "Additional filter options",
+                    "properties": {
+                      "createdAt": {
+                        "type": "object",
+                        "description": "Creation dates",
+                        "properties": {
+                          "from": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2024-04-24T19:48:39.508Z"
+                          },
+                          "to": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2024-08-24T19:48:39.508Z"
+                          }
+                        }
+                      },
+                      "updatedAt": {
+                        "type": "object",
+                        "description": "Update dates",
+                        "properties": {
+                          "from": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2024-04-24T19:48:39.508Z"
+                          },
+                          "to": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2024-08-24T19:48:39.508Z"
+                          }
+                        }
+                      },
+                      "categories": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "description": "Category IDs",
+                        "example": [
+                          "662a2dbdeb88230539446114"
+                        ]
+                      },
+                      "creators": {
+                        "type": "object",
+                        "description": "User filters, with selectAll user option as well that will neglect selected property if true",
+                        "properties": {
+                          "selected": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "User IDs",
+                              "example": "66295411453e0001750a08f8"
+                            }
+                          },
+                          "selectAll": {
+                            "type": "boolean",
+                            "example": false
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/assignToUser": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Assign note to user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully assigned note to user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    },
+                    "savedNote": {
+                      "$ref": "#/components/schemas/Note"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "assignToId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "User ID",
+                    "required": true,
+                    "example": "66295411453e0001750a08f8"
+                  },
+                  "noteId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Note ID",
+                    "required": true,
+                    "example": "662a6a787b15ff3eb4b5f155"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/toggleNotePrivate": {
+      "post": {
+        "tags": [
+          "Note"
+        ],
+        "summary": "Toggle note privacy",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully Toggled note privacy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "A message indicating the result of the operation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "422": {
+            "description": "Validation failed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "noteId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "662a6a787b15ff3eb4b5f155"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Access token is missing or invalid"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier of the user"
+          },
+          "firstname": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "lastname": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user (hashed)"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of note IDs associated with the user"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Version number of the user"
+          }
+        }
+      },
+      "Note": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier of the note"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the note"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the note"
+          },
+          "creator": {
+            "type": "string",
+            "description": "The ID of the user who created the note"
+          },
+          "category": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Category ID associated with the note"
+          },
+          "isPrivate": {
+            "type": "boolean",
+            "description": "Indicates whether the note is private or not"
+          },
+          "assignedTo": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "description": "An array of user IDs associated with the note"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the note was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the note was last updated"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Version number of the note"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier of the category"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the category"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the category was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the category was last updated"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Version number of the category"
+          }
+        }
+      },
+      "UserMatched": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier of the user"
+          },
+          "firstname": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "lastname": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "username": {
+            "type": "string",
+            "description": "The username of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user (hashed)"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of note IDs associated with the user"
+          },
+          "matchedFilter": {
+            "type": "boolean",
+            "description": "Indication if user matched the result of notes search"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Version number of the user"
+          }
+        }
+      }
+    }
+  }
+}

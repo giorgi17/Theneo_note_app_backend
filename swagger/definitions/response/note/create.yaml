@@ -1,0 +1,19 @@
+type: object
+properties:
+  message:
+    type: string
+    description: A message indicating the result of the operation
+  note:
+    $ref: ../../models/Note.yaml
+  creator:
+    type: object
+    properties:
+      _id:
+        type: string
+        format: uuid
+        example: 5fb0f7bfa9807c3362d8557b
+        description: Id of note creator
+      username:
+        type: string
+        example: tester123
+        description: username of note creator

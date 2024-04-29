@@ -1,0 +1,11 @@
+type: object
+properties:
+  message:
+    type: string
+    description: A message indicating the result of the registration process.
+    example: User created!
+  userId:
+    type: string
+    format: uuid
+    description: The ID of the newly created user.
+    example: 5fbb4f03842b2d12c4097db2

@@ -1,0 +1,19 @@
+type: object
+properties:
+    _id:
+        type: string
+        description: The unique identifier of the category
+    title:
+        type: string
+        description: The title of the category
+    createdAt:
+        type: string
+        format: date-time
+        description: The date and time when the category was created
+    updatedAt:
+        type: string
+        format: date-time
+        description: The date and time when the category was last updated
+    __v:
+        type: integer
+        description: Version number of the category
